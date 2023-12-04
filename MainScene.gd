@@ -193,6 +193,19 @@ func runSceneFromFile(path):
 				BGFade(messageSplit[1])
 				await BGFadeDone
 			
+			"setvar":
+				""" Currently only sets to a string. """
+				setVarsEntry(messageSplit[1], messageSplit[2])
+			
+			"jumpfile":
+				# Jump to another file.
+				runSceneFromFile(messageSplit[1])
+			
+			"jumpfunc":
+				# Calls a function on this.
+				var funcToCall = Callable(self, messageSplit[1])
+				funcToCall.call()
+			
 			_:
 				""" Default option: characterSay """
 				"""

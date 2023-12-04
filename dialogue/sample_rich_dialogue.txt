@@ -2,7 +2,11 @@ music|Favorite
 #|fadein|s|2
 shake
 s|Hey $y/n !
+#|jumpfile|sample_branch_1
+#|jumpfunc|openMenu
 s|$y/n ? $y/n . $y/n !
+setvar|y/n|New name
+s|I'd rather call you $y/n .
 s|How's this for dialogue? $test
 s|This looks [i]great![/i]
 #|not a real character just the narrator|I am the narrator.
