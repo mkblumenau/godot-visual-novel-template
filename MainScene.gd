@@ -7,8 +7,7 @@ signal BGFadeDone
 signal sceneFromFileDone
 
 var vars = {"test": "Variable parsing works!",
-			"hop": "flop",
-			"y/n": "Throckmorton"} # dictionary where variables go
+			"y/n": "This will be overwritten"} # dictionary where variables go
 
 """ This script runs the main gameplay scene.
 It has a few UI functions, but also the actual gameplay functions
@@ -149,14 +148,10 @@ func runSceneFromFile(path):
 						c.showAnimation(messageSplit[2])
 			
 			"show":
-				for c in $Characters.get_children():
-					if c.characterTag == messageSplit[1]:
-						c.show()
+				characterShow(messageSplit[1])
 			
 			"hide":
-				for c in $Characters.get_children():
-					if c.characterTag == messageSplit[1]:
-						c.hide()
+				characterHide(messageSplit[1])
 			
 			"choice":
 				# Creates a choice menu from the inputs.

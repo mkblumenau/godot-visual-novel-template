@@ -66,4 +66,6 @@ Documentation
 		$name will be parsed as the variable under tag "name" in the dictionary called vars.
 		Escape the dollar sign (\$) to prevent this from happening.
 		Put a space in between the variable and any following punctuation.
+		
+		There are also other features that can be used in dialogue if you use runSceneFromFile to read the dialogue files. Read through runSceneFromFile in the code, or the sample dialogue file, to see what they all are.
 	Make sure to include *.txt in the export settings for the project.
