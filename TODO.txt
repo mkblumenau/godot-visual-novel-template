@@ -25,8 +25,6 @@ Features implemented:
 To add:
 	Maybe make the audio in a global variables?
 		This would avoid duplicating some code between main_menu and AudioSources
-	Add text input system
-		For putting in your name (for example)
 	Add features to runSceneFromFile
 		Warning: If you call a dialogue menu at the end of a string of dialogue, and you take it to another menu, sceneFromFileDone will still be called for the end of the first scene. The game will not await it again on subsequent scenes, so be careful what you put after calling runSceneFromFile.
 	Save system?

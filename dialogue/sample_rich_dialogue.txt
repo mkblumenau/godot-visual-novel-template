@@ -19,5 +19,5 @@ Or not.
 show|s
 bgfade|mountain
 s|up the mountain
-#|choice|What next?|choice 1|sample_branch_1|choice 2|sample_branch_2
-choicefunc|What next?|choice 1|branch1|choice 2|branch2
+choice|What next?|choice 1|sample_branch_1|choice 2|sample_branch_2
+#|choicefunc|What next?|choice 1|branch1|choice 2|branch2

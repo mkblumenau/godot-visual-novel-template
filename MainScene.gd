@@ -44,7 +44,7 @@ func _ready():
 	await BGFadeDone
 	characterSay("s", "up the mountain")
 	await sceneTextBox.textFinished
-	choiceMenu("What next?", [["Branch 1", branch1], ["Branch 2", branch2]])
+	choiceMenu("What next?", [["Branch 1", branch1], ["Branch 2", branch2]], "callable")
 	"""
 	pass # Replace with function body.
 
@@ -166,7 +166,7 @@ func runSceneFromFile(path):
 					listPos += 2
 				print(choiceMenuContent)
 				# Show the menu and wait for a choice.
-				dialogueChoiceMenu(choiceMenuTitle, choiceMenuContent)
+				choiceMenu(choiceMenuTitle, choiceMenuContent, "jumpfile")
 				await $ChoiceMenu.choiceMade
 			
 			"choicefunc":
@@ -181,7 +181,7 @@ func runSceneFromFile(path):
 					listPos += 2
 				print(choiceMenuContent)
 				# Show the menu and wait for a choice.
-				dialogueChoiceMenuFunctions(choiceMenuTitle, choiceMenuContent)
+				choiceMenu(choiceMenuTitle, choiceMenuContent, "string")
 				await $ChoiceMenu.choiceMade
 			
 			"bgfade":
@@ -306,32 +306,14 @@ func BGFade(newBGString):
 	emit_signal("BGFadeDone")
 
 
-func choiceMenu(menuName, choicesArray):
+func choiceMenu(menuName, choicesArray, functionMode):
 	""" Shows the choice menu. 
 	Syntax: menuName is the label for the menu.  
 	choicesArray is an array of arrays. 
 	Each subarray is formatted as ["string for option name", functionToCallFromButton] """
 	var newChoiceMenu = choiceMenuTemplate.instantiate()
 	add_child(newChoiceMenu) # add to the tree before doing anything with it
-	newChoiceMenu.setUpMenu(menuName, choicesArray)
-	var screenWidth = ProjectSettings.get_setting("display/window/size/viewport_width")
-	var screenHeight = ProjectSettings.get_setting("display/window/size/viewport_height")
-	newChoiceMenu.set_position(Vector2(screenWidth * 0.5, screenHeight * 0.5))
-
-
-func dialogueChoiceMenu(menuName, choicesArray):
-	var newChoiceMenu = choiceMenuTemplate.instantiate()
-	add_child(newChoiceMenu) # add to the tree before doing anything with it
-	newChoiceMenu.setUpMenuFromDialogue(menuName, choicesArray)
-	var screenWidth = ProjectSettings.get_setting("display/window/size/viewport_width")
-	var screenHeight = ProjectSettings.get_setting("display/window/size/viewport_height")
-	newChoiceMenu.set_position(Vector2(screenWidth * 0.5, screenHeight * 0.5))
-	
-	
-func dialogueChoiceMenuFunctions(menuName, choicesArray):
-	var newChoiceMenu = choiceMenuTemplate.instantiate()
-	add_child(newChoiceMenu) # add to the tree before doing anything with it
-	newChoiceMenu.setUpMenuDialogueFunctions(menuName, choicesArray)
+	newChoiceMenu.setUpMenu(menuName, choicesArray, functionMode)
 	var screenWidth = ProjectSettings.get_setting("display/window/size/viewport_width")
 	var screenHeight = ProjectSettings.get_setting("display/window/size/viewport_height")
 	newChoiceMenu.set_position(Vector2(screenWidth * 0.5, screenHeight * 0.5))
