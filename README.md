@@ -3,13 +3,13 @@ This is a Godot project that can be used as a template for making visual novels.
 Dialogue and events can be read in from text files or added as functions in the main scene script.
 
 Features:
-  Animated characters and backgrounds that can be edited visually
-  Text box
-    Can spell out text or output it all at once
-    Shake
-    BBCode tags and variables in text
-    Fade all characters not speaking
-  Menus for player input
+	Animated characters and backgrounds that can be edited visually
+ 	Text box
+  		Can spell out text or output it all at once
+    		Shake
+      		BBCode tags and variables in text
+		Fade all characters not speaking
+  	Menus for player input
     Player choice
     Text input
   Option to fade between scenes
