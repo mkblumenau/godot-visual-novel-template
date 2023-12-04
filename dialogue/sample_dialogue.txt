@@ -1,0 +1,4 @@
+s|How's this for dialogue?
+s|This looks [i]great![/i]
+not a real character just the narrator|I am the narrator.
+|I am also the narrator.

@@ -1,0 +1,277 @@
+[gd_scene load_steps=16 format=3 uid="uid://br002puogjlw6"]
+
+[ext_resource type="PackedScene" uid="uid://dnqio1mgspfsh" path="res://character_template.tscn" id="1_ed3ov"]
+[ext_resource type="Script" path="res://MainScene.gd" id="1_lea0o"]
+[ext_resource type="PackedScene" uid="uid://sesdrgngh3n2" path="res://choice_menu.tscn" id="2_7u0a1"]
+[ext_resource type="PackedScene" uid="uid://cvpj511k0oemf" path="res://text_input_menu.tscn" id="3_ro5sn"]
+[ext_resource type="Script" path="res://AudioSources.gd" id="4_bhe7e"]
+[ext_resource type="Texture2D" uid="uid://80pv2k6funy" path="res://images/20210731_124415.png" id="4_jrjpx"]
+[ext_resource type="Texture2D" uid="uid://c1rlchcfvr183" path="res://images/20210801_090119.png" id="5_g4n8j"]
+[ext_resource type="PackedScene" uid="uid://chcf084eyhiiw" path="res://text_box.tscn" id="5_xg5km"]
+[ext_resource type="Texture2D" uid="uid://cbxx5pldglq1j" path="res://images/characters/giggle.png" id="7_fvycp"]
+[ext_resource type="Texture2D" uid="uid://bye2bgddybas0" path="res://images/characters/straight_face.png" id="8_glmnh"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_305n4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_jrjpx")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_g4n8j")
+}],
+"loop": true,
+"name": &"mountain",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_jrjpx")
+}],
+"loop": true,
+"name": &"water",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5uam7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_fvycp")
+}],
+"loop": false,
+"name": &"giggle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_glmnh")
+}],
+"loop": false,
+"name": &"normal",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_wlcsg"]
+resource_name = "fade1"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1.5, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0, 0, 0, 1), Color(0, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_00b76"]
+resource_name = "fade2"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_e52j1"]
+_data = {
+"fade1": SubResource("Animation_wlcsg"),
+"fade2": SubResource("Animation_00b76")
+}
+
+[node name="SampleScene" type="Node2D" node_paths=PackedStringArray("sceneTextBox")]
+script = ExtResource("1_lea0o")
+choiceMenuTemplate = ExtResource("2_7u0a1")
+inputMenuTemplate = ExtResource("3_ro5sn")
+sceneTextBox = NodePath("GUI/TextBoxParent/TextBox")
+
+[node name="Background" type="AnimatedSprite2D" parent="."]
+position = Vector2(622, 193)
+scale = Vector2(0.33, 0.33)
+sprite_frames = SubResource("SpriteFrames_305n4")
+
+[node name="Characters" type="Node" parent="."]
+
+[node name="Sylvie" parent="Characters" instance=ExtResource("1_ed3ov")]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(0.8, 0.8)
+characterName = "Sylvie"
+characterTag = "s"
+characterColor = Color(0.133333, 0.74902, 0, 1)
+
+[node name="SpriteRenderer" parent="Characters/Sylvie" index="0"]
+sprite_frames = SubResource("SpriteFrames_5uam7")
+animation = &"giggle"
+
+[node name="AudioSources" type="Node" parent="."]
+script = ExtResource("4_bhe7e")
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="AudioSources"]
+bus = &"Music"
+
+[node name="SFXPlayer" type="AudioStreamPlayer" parent="AudioSources"]
+bus = &"SFX"
+
+[node name="GUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="TextBoxParent" type="Control" parent="GUI"]
+anchors_preset = 0
+offset_left = 68.0
+offset_top = 449.0
+offset_right = 108.0
+offset_bottom = 489.0
+
+[node name="TextBox" parent="GUI/TextBoxParent" node_paths=PackedStringArray("charactersContainer") instance=ExtResource("5_xg5km")]
+visible = false
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
+charactersContainer = NodePath("../../../Characters")
+spellOutText = true
+
+[node name="MenuButton" type="Button" parent="GUI"]
+layout_mode = 0
+offset_left = 1092.0
+offset_top = 9.0
+offset_right = 1145.0
+offset_bottom = 40.0
+text = "Menu"
+
+[node name="OptionsMenu" type="Control" parent="GUI"]
+visible = false
+z_index = 1
+anchors_preset = 0
+offset_left = 614.0
+offset_top = 210.0
+offset_right = 654.0
+offset_bottom = 250.0
+
+[node name="ColorRect" type="ColorRect" parent="GUI/OptionsMenu"]
+layout_mode = 0
+offset_left = -6.0
+offset_top = -11.0
+offset_right = 133.0
+offset_bottom = 208.0
+color = Color(0, 0, 0, 0.678431)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/OptionsMenu"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="GUI/OptionsMenu/VBoxContainer"]
+layout_mode = 2
+text = "Menu"
+horizontal_alignment = 1
+
+[node name="ReturnToMainButton" type="Button" parent="GUI/OptionsMenu/VBoxContainer"]
+layout_mode = 2
+text = "Return to main"
+
+[node name="MusicToggleCheckbox" type="CheckBox" parent="GUI/OptionsMenu/VBoxContainer"]
+layout_mode = 2
+button_pressed = true
+text = "Music"
+
+[node name="SFXToggleCheckbox" type="CheckBox" parent="GUI/OptionsMenu/VBoxContainer"]
+layout_mode = 2
+button_pressed = true
+text = "SFX"
+
+[node name="HistoryButton" type="Button" parent="GUI/OptionsMenu/VBoxContainer"]
+layout_mode = 2
+text = "History"
+
+[node name="CloseOptionsMenu" type="Button" parent="GUI/OptionsMenu/VBoxContainer"]
+layout_mode = 2
+text = "Close"
+
+[node name="HistoryMenu" type="Control" parent="GUI"]
+visible = false
+anchors_preset = 0
+offset_left = 465.0
+offset_top = 56.0
+offset_right = 505.0
+offset_bottom = 96.0
+
+[node name="ColorRect" type="ColorRect" parent="GUI/HistoryMenu"]
+layout_mode = 0
+offset_left = -8.0
+offset_top = -7.0
+offset_right = 420.0
+offset_bottom = 337.0
+color = Color(0, 0, 0, 0.666667)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/HistoryMenu"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="GUI/HistoryMenu/VBoxContainer"]
+layout_mode = 2
+text = "History"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="GUI/HistoryMenu/VBoxContainer"]
+custom_minimum_size = Vector2(400, 250)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/HistoryMenu/VBoxContainer/ScrollContainer"]
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="GUI/HistoryMenu/VBoxContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+bbcode_enabled = true
+
+[node name="CloseHistoryButton" type="Button" parent="GUI/HistoryMenu/VBoxContainer"]
+layout_mode = 2
+text = "Close"
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasModulate"]
+libraries = {
+"": SubResource("AnimationLibrary_e52j1")
+}
+
+[connection signal="newText" from="GUI/TextBoxParent/TextBox" to="." method="_on_text_box_new_text"]
+[connection signal="textFinished" from="GUI/TextBoxParent/TextBox" to="." method="_on_text_box_text_finished"]
+[connection signal="pressed" from="GUI/MenuButton" to="." method="openMenu"]
+[connection signal="pressed" from="GUI/OptionsMenu/VBoxContainer/ReturnToMainButton" to="." method="_on_return_to_main_button_pressed"]
+[connection signal="toggled" from="GUI/OptionsMenu/VBoxContainer/MusicToggleCheckbox" to="." method="_on_music_toggle_checkbox_toggled"]
+[connection signal="toggled" from="GUI/OptionsMenu/VBoxContainer/SFXToggleCheckbox" to="." method="_on_sfx_toggle_checkbox_toggled"]
+[connection signal="pressed" from="GUI/OptionsMenu/VBoxContainer/HistoryButton" to="." method="_on_history_button_pressed"]
+[connection signal="pressed" from="GUI/OptionsMenu/VBoxContainer/HistoryButton" to="GUI/OptionsMenu" method="hide"]
+[connection signal="pressed" from="GUI/OptionsMenu/VBoxContainer/CloseOptionsMenu" to="." method="_on_close_options_menu_pressed"]
+[connection signal="pressed" from="GUI/OptionsMenu/VBoxContainer/CloseOptionsMenu" to="GUI/OptionsMenu" method="hide"]
+[connection signal="pressed" from="GUI/HistoryMenu/VBoxContainer/CloseHistoryButton" to="." method="openMenu"]
+[connection signal="pressed" from="GUI/HistoryMenu/VBoxContainer/CloseHistoryButton" to="GUI/HistoryMenu" method="hide"]
+
+[editable path="Characters/Sylvie"]

@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://cs2pvrnq8hxfm"]
+
+[ext_resource type="Script" path="res://InvisibleHoverButton.gd" id="1_pq2ci"]
+
+[node name="InvisibleHoverButton" type="Button"]
+offset_right = 177.0
+offset_bottom = 150.0
+script = ExtResource("1_pq2ci")
+hoverColor = Color(0.27451, 0.490196, 1, 0.498039)
+nonHoverColor = Color(0, 0, 0, 0)
+
+[connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
+[connection signal="focus_exited" from="." to="." method="_on_focus_exited"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

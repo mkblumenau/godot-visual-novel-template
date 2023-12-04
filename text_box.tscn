@@ -1,0 +1,80 @@
+[gd_scene load_steps=4 format=3 uid="uid://chcf084eyhiiw"]
+
+[ext_resource type="Script" path="res://TextBox.gd" id="1_da4oa"]
+
+[sub_resource type="Animation" id="Animation_4sqkg"]
+resource_name = "shake"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-50, 0), Vector2(0, 0), Vector2(50, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_i3h8o"]
+_data = {
+"shake": SubResource("Animation_4sqkg")
+}
+
+[node name="TextBox" type="Control"]
+z_index = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_da4oa")
+defaultColor = Color(1, 1, 1, 1)
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1000.0
+offset_bottom = 200.0
+color = Color(0, 0, 0, 0.666667)
+
+[node name="Container" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 9.0
+offset_right = 948.0
+offset_bottom = 188.0
+
+[node name="CharacterNameDisplay" type="RichTextLabel" parent="Container"]
+custom_minimum_size = Vector2(400, 40)
+layout_mode = 2
+bbcode_enabled = true
+text = "Speaker"
+
+[node name="TextDisplay" type="RichTextLabel" parent="Container"]
+custom_minimum_size = Vector2(900, 140)
+layout_mode = 2
+bbcode_enabled = true
+text = "Our market research indicates that people like texts that are very long so we made this line to be [b]the[/b] [i]longest[/i] line ever! WOOOOOOOOO!
+
+...Are we done now!
+No, no we are not. This is a long utterance, a magnanimous utterance!
+... is that how that word is even used?"
+
+[node name="TextBoxButton" type="Button" parent="."]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(1000, 200)
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="SpellOutTextTimer" type="Timer" parent="."]
+wait_time = 0.05
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_i3h8o")
+}
+
+[connection signal="pressed" from="TextBoxButton" to="." method="_on_text_box_button_pressed"]

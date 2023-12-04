@@ -1,0 +1,19 @@
+music|Favorite
+#|fadein|s|2
+shake
+s|Hey $y/n !
+s|$y/n ? $y/n . $y/n !
+s|How's this for dialogue? $test
+s|This looks [i]great![/i]
+#|not a real character just the narrator|I am the narrator.
+|I am also the narrator. \$100
+anim|s|giggle
+pos|s|0.3
+s|Look at me now!
+hide|s
+Or not.
+show|s
+bgfade|mountain
+s|up the mountain
+#|choice|What next?|choice 1|sample_branch_1|choice 2|sample_branch_2
+choicefunc|What next?|choice 1|branch1|choice 2|branch2
