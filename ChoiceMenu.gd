@@ -17,6 +17,14 @@ func _process(delta):
 	pass
 
 
+""" There are three variants of this because they all correspond to different ways
+of calling this function.
+setUpMenu is intended to be called directly from MainScene.
+setUpMenuFromDialogue is for making a menu from a dialogue file
+that only goes to other files.
+setUpMenuDialogueFunctions is for making a menu from a dialogue file
+that calls other functions. """
+
 func setUpMenu(menuName, inputsArray):
 	""" Call this to set up the menu. 
 	Syntax: menuName is the label for the menu.  
